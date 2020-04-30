@@ -1,5 +1,5 @@
 # Simulation of election game
-This individual project is carried out during my last year of the MSc. Statistics and Econometrics (2019-2020).
+This individual project is carried out during my senior year of the MSc. Statistics and Econometrics (2019-2020).
 The main objective is double:
 1. To simulate the indirect election game and see the probability of being pivotal voter of a voter within a state
 2. To visualize it in an interactive application where users can select their choices of vote for the elector.
