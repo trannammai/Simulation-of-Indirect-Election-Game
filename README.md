@@ -6,9 +6,8 @@ The main objective is double:
 The programming language used in this project is R and the application is built on RShiny
 
 More details:
-Indirect election: https://en.wikipedia.org/wiki/Indirect_election
-
-Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
+1. Indirect election: https://en.wikipedia.org/wiki/Indirect_election
+2. Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
 
 ## Context
 
