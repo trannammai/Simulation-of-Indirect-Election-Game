@@ -1,5 +1,13 @@
 # Simulation of election game (programming in R)
-This individual project is carried out during my last year of the MSc. Statistics and Econometrics (2019-2020)
+This individual project is carried out during my last year of the MSc. Statistics and Econometrics (2019-2020).
+The main objective is double:
+1. To simulate the indirect election game and see the probability of being pivotal voter of a voter within a state
+2. To visualize it in an interactive application where users can select their choices of vote for the elector.
+The programming language used in this project is R and the application is built on RShiny
+
+More details:
+Indirect election: https://en.wikipedia.org/wiki/Indirect_election
+Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
 
 ## Context
 
@@ -12,11 +20,9 @@ Example: Assuming that n = 3
 • in state 2, n2 = 2n + 1 = 7, there were 5 votes for D and 2 votes for R. D wins the election in state 1 and so it wins 2 big voters.
 • in state 3, n3 = 3n = 9, there were 6 votes for D and 3 votes for R. D won the election in state 3 and he therefore wins 3 great voters.
 • in state 4, n4 = 5n = 15, there were 7 votes for D and 8 votes for R. R wins the election in state 4 and so it wins 5 great voters.
-
 In the end, D wins 1 + 2 + 3 = 6 voters, R has 5. D wins the election.
 
-We will focus here on the probability that an elector belonging to a certain state is pivotal. A voter is said to be pivotal if by changing his vote, he also changes the result of the election. 
-Remark: A pivotal voter is one who necessarily voted for the winner.
+I will focus here on the probability that an elector belonging to a certain state is pivotal. A voter is said to be pivotal if by changing his vote, he also changes the result of the election and a pivotal voter is one who necessarily voted for the winner.
 
 ## Consequence for the algorithm: 
 
@@ -29,16 +35,11 @@ If conditions 1 to 3 are met, the number of pivot in state k will be equal to (n
 
 How to simulate the choice of a voter:
 • case IC: a voter of the country chooses his candidate according to a Bernoulli of parameter p = 1/2.
-• IAC case ∗: in each state k (k = 1, ..., 4), an elector chooses his candidate according to a Bernoulli of pk parameter, where each pk is simulated according to a Uniform law [0, 1].
+• IAC case ∗: in each state k (k = 1, ..., 4), an elector chooses his candidate according to a Bernoulli of pk parameter, where each pk is simulated according to a Uniform law [0,1].
 
-Note: here, we are more interested in knowing the number of voters who voted D or R inside
-of a state. Thus, rather than simulating in each state nk Bernoulli, we can directly simulate the
-number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function)
-where pk depends on the above model.
+Note: here, I am more interested in knowing the number of voters who voted D or R inside of a state. Thus, rather than simulating in each state nk Bernoulli, I can directly simulate the number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function) where pk depends on the above model.
 
-## Objective of the programming
-
-Create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, we will replicate B times the following simulation process:
+Hence, I will create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, I will replicate B times the following simulation process:
 • simulate, as appropriate, the choice of voters in each state. The objective is therefore to obtain a vector size 4 (one value per state), containing the number of people who voted for one of the two candidate, let's choose D for example, within each state. It will be a question of properly setting the function rbinom ().
-• determine the winner of the election. Here, we always choose D as a reference, in other words we see whether or not D won the election.
+• determine the winner of the election. Here, I always choose D as a reference, in other words we see whether or not D won the election.
 • calculate the number of voters who are pivotal in each state (care must be taken to consider the case where D is the winner and the “symmetrical” case where R is the winner).
