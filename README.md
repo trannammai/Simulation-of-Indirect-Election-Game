@@ -1,5 +1,5 @@
 # Simulation of election game (programming in R)
-This project is within the context of my Master of Science in Statistics and Econometrics at Toulouse School of Economics, France
+This project is within the context of my Master of Science in Statistics and Econometrics
 
 ## Context
 
