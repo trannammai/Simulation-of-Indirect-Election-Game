@@ -1,5 +1,5 @@
 # Simulation of election game (programming in R)
-This project is within the context of my Master of Science in Statistics and Econometrics
+This project is carried out during my last year of the MSc. Statistics and Econometrics (2019-2020)
 
 ## Context
 
