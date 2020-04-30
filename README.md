@@ -1,4 +1,4 @@
-# Simulation of election game (programming in R)
+# Simulation of election game
 This individual project is carried out during my last year of the MSc. Statistics and Econometrics (2019-2020).
 The main objective is double:
 1. To simulate the indirect election game and see the probability of being pivotal voter of a voter within a state
