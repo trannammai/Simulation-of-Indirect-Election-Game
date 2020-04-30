@@ -7,6 +7,7 @@ The programming language used in this project is R and the application is built 
 
 More details:
 Indirect election: https://en.wikipedia.org/wiki/Indirect_election
+
 Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
 
 ## Context
