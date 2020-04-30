@@ -1,5 +1,7 @@
 # Simulation of election game (programming in R)
-## Presentation of the problem
+This project is within the context of my Master of Science in Statistics and Econometrics at Toulouse School of Economics, France
+
+## Context
 
 The objective of this project is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. The context is as follows: there are two candidates for the office of president: one candidate D and candidate R. The country is made up of 4 states which respectively contain n1 = n (where n is odd), n2 = 2n + 1, n3 = 3n and n4 = 5n voters.
 
