@@ -1,4 +1,4 @@
-# Simulation of election game
+# Simulation of indirect election game
 This individual project is carried out during my senior year of the MSc. Statistics and Econometrics. The objective is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. More specifically, I aimed to:
 1. Simulate the indirect election game and observe the probability of being pivotal voter of a voter within a state. 
 2. Visualize the result in an interactive application where users can adjust their choices of vote for the elector.
