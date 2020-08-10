@@ -1,17 +1,16 @@
 # Simulation of election game
 This individual project is carried out during my senior year of the MSc. Statistics and Econometrics.
-The main objective is double:
-1. To simulate the indirect election game and see the probability of being pivotal voter of a voter within a state
-2. To visualize it in an interactive application where users can select their choices of vote for the elector.
+The objective is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. There are two main objectives of this project:
+1. To simulate the indirect election game and observe the probability of being pivotal voter of a voter within a state
+2. To visualize the result in an interactive application where users can adjust their choices of vote for the elector.
 The programming language used in this project is R and the application is built on RShiny
 
-More details:
+For more details:
 1. Indirect election: https://en.wikipedia.org/wiki/Indirect_election
 2. Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
 
 ## Context
-
-The objective of this project is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. The context is as follows: there are two candidates for the office of president: one candidate D and candidate R. The country is made up of 4 states which respectively contain n1 = n (where n is odd), n2 = 2n + 1, n3 = 3n and n4 = 5n voters.
+The context of the simulation is as follows: there are two candidates for the office of president: one candidate D and candidate R. The country is made up of 4 states which respectively contain n1 = n (where n is odd), n2 = 2n + 1, n3 = 3n and n4 = 5n voters.
 
 The mechanism of the election is indirect: the voters will elect in states 1, 2, 3 and 4 respectively 1, 2, 3 and 5 electors representing party D or R. The president-elect will be the one with the largest number of major voters
 
