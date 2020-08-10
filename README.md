@@ -26,20 +26,20 @@ I will focus here on the probability that an elector belonging to a certain stat
 
 Taking into account all details of the simulation, I come up with a first thought on the algorithm:
 
-To be considered as the pivotal within a state, all of the following conditions must be met:
+To be considered as the pivotal within a state, all of the following conditions must be met:<br/>
 • the state was won by the winner of the election (1)<br/>
 • the difference in votes between the winner and the loser in the state is equal to 1 (2)<br/>
 • the number of electors in the state is large enough for a change of camp to tip the election (3)<br/>
 
 If all three conditions are met, the number of pivot in state k will be equal to (nk + 1) / 2.
 
-Regarding the choice of voters, there are two possible cases:
+Regarding the choice of voters, there are two possible cases:<br/>
 • case IC: a voter of the country chooses his candidate according to a Bernoulli of parameter p = 1/2<br/>
 • case IAC: in each state k (k = 1, ..., 4), an elector chooses his candidate according to a Bernoulli of pk parameter, where each pk is simulated according to a Uniform law [0,1].<br/>
 
 Please note that I am more interested in knowing the number of voters who voted D or R inside of a state. Thus, rather than simulating in each state nk Bernoulli, I can directly simulate the number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function) where pk depends on the above model.
 
-Hence, I create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, I will replicate B times the following simulation process:
+Hence, I create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, I will replicate B times the following simulation process:<br/>
 • simulate, as appropriate, the choice of voters in each state. The objective is therefore to obtain a vector size 4 (one value per state), containing the number of people who voted for one of the two candidate, let's choose D for example, within each state. It will be a question of properly setting the function rbinom ().<br/>
 • determine the winner of the election. Here, I always choose D as a reference, in other words we see whether or not D won the election.<br/>
 • calculate the number of voters who are pivotal in each state (care must be taken to consider the case where D is the winner and the “symmetrical” case where R is the winner).<br/>
