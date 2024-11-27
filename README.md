@@ -1,4 +1,4 @@
-# Simulation of indirect election game
+# Simulation of indirect election game in R
 This individual project is carried out during my senior year of the MSc. Statistics and Econometrics. The objective is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. More specifically, I aimed to:
 1. Simulate the indirect election game and observe the probability of being pivotal voter of a voter within a state. 
 2. Visualize the result in an interactive application where users can adjust their choices of vote for the elector.
@@ -13,7 +13,7 @@ Supposingly, there are two candidates for the office of president: one candidate
 
 As mentioned above, the mechanism of the election is indirect, which means that the voters will elect in states 1, 2, 3 and 4 respectively 1, 2, 3 and 5 electors representing party D or R. The president-elect will be the one with the largest number of major voters.
 
-For example: Assuming that n = 3
+For example: Assuming that n = 3 <br/>
 • in state 1, n1 = 3, there were 2 votes for D and 1 vote for R. D wins the election in state 1 and he therefore wins 1 large voter.<br/>
 • in state 2, n2 = 2n + 1 = 7, there were 5 votes for D and 2 votes for R. D wins the election in state 1 and so it wins 2 big voters.<br/>
 • in state 3, n3 = 3n = 9, there were 6 votes for D and 3 votes for R. D won the election in state 3 and he therefore wins 3 great voters.<br/>
@@ -37,7 +37,7 @@ Regarding the choice of voters, there are two possible cases:<br/>
 • case IC: a voter of the country chooses his candidate according to a Bernoulli of parameter p = 1/2<br/>
 • case IAC: in each state k (k = 1, ..., 4), an elector chooses his candidate according to a Bernoulli of pk parameter, where each pk is simulated according to a Uniform law [0,1].<br/>
 
-Please note that I am more interested in knowing the number of voters who voted D or R inside of a state. Thus, rather than simulating in each state nk Bernoulli, I can directly simulate the number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function) where pk depends on the above model.
+Note that I am more interested in knowing the number of voters who voted D or R inside of a state. Thus, rather than simulating in each state nk Bernoulli, I can directly simulate the number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function) where pk depends on the above model.
 
 Hence, I create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, I will replicate B times the following simulation process:<br/>
 • simulate, as appropriate, the choice of voters in each state. The objective is therefore to obtain a vector size 4 (one value per state), containing the number of people who voted for one of the two candidate, let's choose D for example, within each state. It will be a question of properly setting the function rbinom ().<br/>

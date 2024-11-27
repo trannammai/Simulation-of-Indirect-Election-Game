@@ -3,7 +3,7 @@ library(shiny)
 
 # Define the user interface for the application which draws a Cleveland dot chart
 shinyUI <- fluidPage(
-   titlePanel("Excercice 4"),
+   titlePanel("Simulation of Indirect Election"),
    sidebarLayout(
       sidebarPanel(
         numericInput("n", "Parameter size n:", min = 5, step = 2, value = 5),

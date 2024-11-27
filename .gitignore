@@ -1,0 +1,2 @@
+# Avoid any powershell files
+**.ps1

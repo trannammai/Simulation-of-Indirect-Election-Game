@@ -20,7 +20,8 @@ simul_elec <- function(n,cas,B){
   majeur[,4][which(majeur[,4] == TRUE)] = 5
   
   # Create a table indicating if D wins according to the indirect election mechanism (Yes = 1, No = 0)
-  # This means that the number of grand voters voting for D should be more than half the total of the great voters in this country (11 being the total number of great voters in this country)  gagne <- ifelse(rowSums(majeur) > 11/2, 1, 0)
+  # This means that the number of grand voters voting for D should be more than half the total of the great voters in this country (11 being the total number of great voters in this country)  
+  gagne <- ifelse(rowSums(majeur) > 11/2, 1, 0)
   gagne <- t(t(gagne))
   gagne <- as.table(cbind(gagne, gagne, gagne, gagne))
   
