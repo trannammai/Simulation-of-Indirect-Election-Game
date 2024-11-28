@@ -1,45 +1,130 @@
-# Simulation of indirect election game in R
-This individual project is carried out during my senior year of the MSc. Statistics and Econometrics. The objective is to check whether in a fictitious presidential election, all voters have the same influence on the result of the vote. More specifically, I aimed to:
-1. Simulate the indirect election game and observe the probability of being pivotal voter of a voter within a state. 
-2. Visualize the result in an interactive application where users can adjust their choices of vote for the elector.
-The programming language used in this project is R and the application is built on RShiny
+# Simulation of Indirect Election Game in R
 
-For more details:
-1. Indirect election: https://en.wikipedia.org/wiki/Indirect_election
-2. Pivotal elector: https://www.sciencedirect.com/science/article/pii/S0261379413000309
+This project simulates a fictitious presidential election to determine whether all voters have the same influence on the outcome. It includes an analysis of pivotal voters and an interactive visualization built using **RShiny**.
+
+---
+
+## Table of Contents
+1. [Context](#context)
+2. [Objectives](#objectives)
+3. [Example Scenario](#example-scenario)
+4. [Simulation Methodology](#simulation-methodology)
+5. [Algorithm](#algorithm)
+6. [Interactive Application](#interactive-application)
+7. [References](#references)
+
+---
 
 ## Context
-Supposingly, there are two candidates for the office of president: one candidate D and candidate R. The country is made up of 4 states which respectively contain n1 = n (where n is odd), n2 = 2n + 1, n3 = 3n and n4 = 5n voters.
 
-As mentioned above, the mechanism of the election is indirect, which means that the voters will elect in states 1, 2, 3 and 4 respectively 1, 2, 3 and 5 electors representing party D or R. The president-elect will be the one with the largest number of major voters.
+An **indirect election** involves voters electing representatives (electors) who then vote to determine the winner.  
+- Learn more about [indirect elections](https://en.wikipedia.org/wiki/Indirect_election).  
+- Read about [pivotal electors](https://www.sciencedirect.com/science/article/pii/S0261379413000309).
 
-For example: Assuming that n = 3 <br/>
-• in state 1, n1 = 3, there were 2 votes for D and 1 vote for R. D wins the election in state 1 and he therefore wins 1 large voter.<br/>
-• in state 2, n2 = 2n + 1 = 7, there were 5 votes for D and 2 votes for R. D wins the election in state 1 and so it wins 2 big voters.<br/>
-• in state 3, n3 = 3n = 9, there were 6 votes for D and 3 votes for R. D won the election in state 3 and he therefore wins 3 great voters.<br/>
-• in state 4, n4 = 5n = 15, there were 7 votes for D and 8 votes for R. R wins the election in state 4 and so it wins 5 great voters.<br/>
-In the end, D wins 1 + 2 + 3 = 6 voters, R has 5. D wins the election.
+The setup:
+- Two candidates: **Candidate D** and **Candidate R**.
+- Four states with the following distribution of voters and electors:
 
-I will focus here on the probability that an elector belonging to a certain state is pivotal. By definition, a voter is said to be pivotal if by changing his vote, he also changes the result of the election and a pivotal voter is one who necessarily voted for the winner. 
+| **State** | **Number of Voters (nk)** | **Electors Representing the State** |
+|-----------|---------------------------|-------------------------------------|
+| State 1   | \( n_1 = n \)             | 1                                   |
+| State 2   | \( n_2 = 2n + 1 \)        | 2                                   |
+| State 3   | \( n_3 = 3n \)            | 3                                   |
+| State 4   | \( n_4 = 5n \)            | 5                                   |
 
-## Consequence for the algorithm: 
+---
 
-Taking into account all details of the simulation, I come up with a first thought on the algorithm:
+## Objectives
 
-To be considered as the pivotal within a state, all of the following conditions must be met:<br/>
-• the state was won by the winner of the election (1)<br/>
-• the difference in votes between the winner and the loser in the state is equal to 1 (2)<br/>
-• the number of electors in the state is large enough for a change of camp to tip the election (3)<br/>
+1. **Simulate the election game** to analyze the probability of being a pivotal voter in each state.
+2. Build an **interactive RShiny app** to allow users to visualize and adjust the voting probabilities.
 
-If all three conditions are met, the number of pivot in state k will be equal to (nk + 1) / 2.
+---
 
-Regarding the choice of voters, there are two possible cases:<br/>
-• case IC: a voter of the country chooses his candidate according to a Bernoulli of parameter p = 1/2<br/>
-• case IAC: in each state k (k = 1, ..., 4), an elector chooses his candidate according to a Bernoulli of pk parameter, where each pk is simulated according to a Uniform law [0,1].<br/>
+## Example Scenario
 
-Note that I am more interested in knowing the number of voters who voted D or R inside of a state. Thus, rather than simulating in each state nk Bernoulli, I can directly simulate the number of people who voted for D using a Binomial parameter (nk, pk) (rbinom () function) where pk depends on the above model.
+When \( n = 3 \):
+- **State 1**: \( n_1 = 3 \), Votes: 2 for D, 1 for R → **D wins 1 elector**.
+- **State 2**: \( n_2 = 7 \), Votes: 5 for D, 2 for R → **D wins 2 electors**.
+- **State 3**: \( n_3 = 9 \), Votes: 6 for D, 3 for R → **D wins 3 electors**.
+- **State 4**: \( n_4 = 15 \), Votes: 7 for D, 8 for R → **R wins 5 electors**.
 
-Hence, I create a function, having as input arguments an integer n corresponding to the value of n defined above, a case character string which gives the simulation model of the choice of an elector and an integer B which gives the number of replications. Inside the function, I will replicate B times the following simulation process:<br/>
-• simulate, as appropriate, the choice of voters in each state. The objective is therefore to obtain a vector size 4 (one value per state), containing the number of people who voted for one of the two candidate, let's choose D for example, within each state. It will be a question of properly setting the function rbinom ().<br/>
-• determine the winner of the election. Here, I always choose D as a reference, in other words we see whether or not D won the election.<br/>
-• calculate the number of voters who are pivotal in each state (care must be taken to consider the case where D is the winner and the “symmetrical” case where R is the winner).<br/>
+**Final Tally**:
+- Candidate D: \( 1 + 2 + 3 = 6 \) electors  
+- Candidate R: \( 5 \) electors  
+
+**Result**: Candidate **D wins the election**.
+
+---
+
+## Simulation Methodology
+
+### Definition of a Pivotal Voter
+A voter is pivotal if:
+1. The state was won by the overall election winner.
+2. The difference in votes between the winner and loser in the state is exactly 1.
+3. Changing the winner's votes in the state flips the election result.
+
+The number of pivotal voters in state \( k \) is given by:  
+\[
+\text{Pivotal voters in state } k = \frac{(n_k + 1)}{2}.
+\]
+
+### Voter Choice Models
+1. **Case IC**: Each voter chooses a candidate using a Bernoulli distribution with \( p = 0.5 \).
+2. **Case IAC**: Each voter chooses a candidate using a Bernoulli distribution with \( p_k \), where \( p_k \sim U(0, 1) \).
+
+### Optimization
+Instead of simulating individual voters:
+- Use the binomial distribution to simulate the total number of votes for **Candidate D**:
+  \[
+  \text{Votes for D in state } k \sim \text{Binomial}(n_k, p_k)
+  \]
+
+---
+
+## Algorithm
+
+### Input Parameters
+- `n`: Integer, determines the number of voters in state 1.
+- `case`: String, specifies the simulation model (`IC` or `IAC`).
+- `B`: Integer, number of replications.
+
+### Steps
+1. **Simulate Voter Choices**:  
+   - Use `rbinom()` to simulate votes for **Candidate D** in each state.
+2. **Determine the Winner**:  
+   - Calculate the total number of electors for **Candidate D** and **Candidate R**.
+3. **Calculate Pivotal Voters**:  
+   - Identify pivotal voters for both cases where **D** wins and **R** wins.
+
+---
+
+## Interactive Application
+
+The **RShiny app** allows users to:
+- Adjust voter probabilities and parameters.
+- Visualize the pivotal voter probabilities across states.
+
+---
+
+## Code Example
+
+Here’s a snippet of the core simulation logic:
+
+```r
+simulate_election <- function(n, case, B) {
+  results <- replicate(B, {
+    # Simulate voter choices
+    if (case == "IC") {
+      p <- 0.5
+    } else {
+      p <- runif(4)  # Random probabilities for IAC case
+    }
+    votes <- sapply(c(n, 2*n+1, 3*n, 5*n), function(nk) rbinom(1, nk, p))
+    
+    # Determine winners and pivotal voters
+    # Add logic for election result and pivotal voter calculation here
+  })
+  return(results)
+}
